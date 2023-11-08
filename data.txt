@@ -1,0 +1,19 @@
+1;KLKLDENEME01;Pasifik;UAT;OctopusServiceBanking;Octopus Service Banking Uygulaması icin
+2;KLKLDENEME02;Pasifik;UAT;TEST33;Octopus Servisi
+3;KLKLDENEME03;Atlas;UAT;ASBTEST2;Acıklama 343231 Acıkla
+4;KLKLDENEME04;Atlas;DEV;TEST3344;Octopus Service TEST32223344
+5;KLKLDENEME05;Atlas;UAT;TEST33342;Acıklama 343231 Acıkla
+6;MLCLAHMET01;Pasifik;PROD;TEST33;Octopus Servisi
+7;MLCLAHMET02;Atlas;UAT;ASBTEST2;Acıklama 343231 Acıkla
+8;MLCLAHMET03;Atlas;INT;TEST3344;Octopus Service TEST32223344
+9;MLCLAHMET04;Atlas;UAT;TEST33342;Acıklama 343231 Acıkla
+10;MLCLAHMET05;Pasifik;PROD;OctopusServiceBanking;Octopus Service Banking Uygulaması icin
+11;MLCLAHMET06;Pasifik;UAT;OctopusServiceBanking;Octopus Service Banking Uygulaması icin
+12;DANAINEK01;Pasifik;UAT;TEST33;Octopus Servisi
+13;DANAINEK02;Atlas;UAT;ASBTEST2;Acıklama 343231 Acıkla
+14;DANAINEK03;Atlas;PROD;TEST3344221;Octopus Sesrvice TEST32223344
+15;DANAINEK04;Atlas;DEV;TEST33342;Acıklama 343231 Acıkla
+16;DANAINEK05;Pasifik;UAT;TEST33;Octopus Servisi
+17;DANAINEK06;Atlas;UAT;ASBTEST2;Acıklama 343231 Acıkla
+18;DANAINEK07;Atlas;PROD;TEST3344;Octopus Service TEST32223344
+19;DANAINEK08;Atlas;UAT;TEST33342;Acıklama 343231 Acıkla

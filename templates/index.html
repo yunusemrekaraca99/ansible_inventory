@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-offline/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='icons/css2.css') }}">
+    <title>Veri Tablosu</title>
+
+</head>
+
+<body>
+    
+    <div>
+        <div class="row">
+            <div id="envanter" class="table-responsive-lg col">1. KISIM
+                <table id="envanter_table" class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Hostname</th>
+                        <th>Location</th>
+                        <th>LVL</th>
+                        <th>Port</th>
+                        <th>Description</th>
+                        <th class="material-symbols-outlined">
+                    
+                        <td><button id="deselectall_view" class="btn btn-default" type="button"><i class="material-icons"></i><span
+                                    class="material-symbols-outlined">
+                                    reply_all
+                                </span></button></td>
+                        <td><button id="selectall_view" class="btn btn-default" type="button"><i class="material-icons"></i><span
+                                    class="material-symbols-outlined">
+                                    forward
+                                </span></button></td>
+                        <td><button id="deselectall" class="btn btn-default" type="button"><i class="material-icons"></i><span
+                                    class="material-symbols-outlined">
+                                    deselect
+                                </span></button></td>
+                        <td><button id="selectall" class="btn btn-default" type="button"><i class="material-icons"></i><span
+                                    class="material-symbols-outlined">
+                                    select_all
+                                </span></button></td>
+                        </th>
+                    </tr>
+                    {% for row in data %}
+                    <tr>
+                        <td id="ID.ID{{ row[0] }} ">{{ row[0] }}</td>
+                        <td id="Hostname.ID{{ row[0] }}">{{ row[1] }}</td>
+                        <td id="Location.ID{{ row[0] }}">{{ row[2] }}</td>
+                        <td id="LVL.ID{{ row[0] }}">{{ row[3] }}</td>
+                        <td id="Port.ID{{ row[0] }}">{{ row[4] }}</td>
+                        <td id="Description.ID{{ row[0] }}">{{ row[5] }}</td>
+                        <td><input id="checkbox.ID{{ row[0] }}" class="form-check-input flex-shrink-0" type="checkbox" name=data-checkbox
+                                value="{{ row[0] }};{{ row[1] }};{{ row[2] }};{{ row[3] }};{{ row[4] }};{{ row[5] }}">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id="selected" class="col">seçilenler
+                <table id="selected_table" class="table table-dark  col md-6">
+                    <tr>
+                        <th>ID</th>
+                        <th>Hostname</th>
+                        <th>Location</th>
+                        <th>LVL</th>
+                        <th>Port</th>
+                        <th>Description</th>
+                    </tr>
+                    <tbody id="table-selected">
+                    <!-- javascript ile checkbox işaretli veriler buraya doldurulur -->
+                    </tbody>
+                </table>
+                <button id="convertYamlButton">Veriyi Gönder ve Yaml a Dönüştür</button>
+            <button id="convertiniButton">Veriyi Gönder ve ini e Dönüştür</button>
+            </div>
+            
+        </div>
+    </div>
+
+ 
+
+    </div>
+    <script src="{{ url_for('static', filename='js/TableFilter/tablefilter.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/TableFilter/tablefilter_all_min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-offline/js/jquery-3.6.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap-offline/js/bootstrap.js') }}"></script>
+
+</body>
+
+<form>
+    <div class="form-group">
+        <label for="formGroupExampleInput">Example label</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label for="formGroupExampleInput2">Another label</label>
+        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+    </div>
+</form>
+
+</html>
