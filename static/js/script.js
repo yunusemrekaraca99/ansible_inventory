@@ -2,7 +2,7 @@
 // Select all checkboxes with the name 'settings' using querySelectorAll.
 var checkboxes = document.querySelectorAll("input[type=checkbox][name=data-checkbox]");
 let selected_datas = [];
-
+var node_name_form;
 
 /*
 For IE11 support, replace arrow functions with normal functions and
@@ -45,7 +45,7 @@ function listenToCheckboxes() {
       tbody.appendChild(row);
   });
 
-  
+  var tf2 = setFilterGrid( "selected_table",table2_Props ); 
 }
 
 
@@ -140,7 +140,9 @@ var tf2 = setFilterGrid( "envanter_table",table2_Props );
 
 
 function get_node_name() {
-  var node_name_form = document.getElementById("nodename").value;
+ node_name_form = document.getElementById("nodename").value; send_node_name();}
+
+  function send_node_name(){
 
   fetch("/node_name", {
       method: "POST",
@@ -168,7 +170,10 @@ function get_node_name() {
       } else {
           // 2. Statement: Message indicates failure or different outcome
           // You can add alternative logic or UI updates here if needed
+          
           $('#hatali_kayit').modal('show');
+          //document.getElementById("node_name_form").innerHTML = node_name_form;
+          get_save_type2_from_buttons();
           // For now, let's log an error message to the console
           console.error('Error: ', data.message);
       }
@@ -178,18 +183,40 @@ function get_node_name() {
   });
 }
 
+function temp_nodename(){
+  var now = new Date();
+var year = now.getFullYear();
+var month = ('0' + (now.getMonth() + 1)).slice(-2); // Ay sıfır ile başlayarak (0-11) geldiği için +1 eklenir
+var day = ('0' + now.getDate()).slice(-2);
+var hours = ('0' + now.getHours()).slice(-2);
+var minutes = ('0' + now.getMinutes()).slice(-2);
+get_node_name();
+// Node ismini oluştur
+node_name_form = "#" + node_name_form + year +  month  + day + "_" + hours  + minutes;
+send_node_name();
+}
 
 function get_save_type_from_buttons(){
   save_type_param = '0'
+  save_type_param2= ''
   document.getElementById("convertYamlButton").addEventListener("click", function(){save_type_param = 'yaml';
   get_node_name();send_save_type_from_buttons();});
   document.getElementById("convertiniButton").addEventListener("click", function() {save_type_param = 'ini';
   get_node_name();send_save_type_from_buttons();});
-
-  
 }
+function get_save_type2_from_buttons(){
+document.getElementById("overwrite").addEventListener("click", function() {save_type_param2 = 'overwrite';
+send_save_type2_from_buttons();save_hosts(save_type_param);
+$('#hatali_kayit').modal('hide');
+$('#exampleModal').modal('hide');});
+document.getElementById("savetotemp").addEventListener("click", function() {save_type_param2 = 'savetotemp';
+temp_nodename();send_save_type2_from_buttons();save_hosts(save_type_param);
+$('#hatali_kayit').modal('hide');
+$('#exampleModal').modal('hide');
+});}
 
 get_save_type_from_buttons();
+
 
 function save_hosts(save_type_parametre){ 
   if (save_type_parametre == 'ini') {convert_ini();}
@@ -203,6 +230,23 @@ function send_save_type_from_buttons() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ save_type_param })
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Save type Veri gönderme hatası');
+      }
+    }).then(data => { console.log(data.received_data); })
+}
+
+function send_save_type2_from_buttons() {
+  fetch("/save_type2", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ save_type_param2 })
   })
     .then(response => {
       if (response.ok) {

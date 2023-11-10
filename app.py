@@ -27,7 +27,17 @@ def fn_get_save_type():
         'received_data': get_save_type}
     print(get_save_type)
     return jsonify(response_data)
-    
+
+@app.route('/save_type2', methods=['POST'])
+def fn_get_save_type2():
+    global get_save_type2
+    get_save_type2 = request.get_json()
+    save_type2 = get_save_type.get('save_type2', '')
+    response_data = {
+        'message': 'Aynı isimde bir node yok.',
+        'received_data': get_save_type2}
+    print(get_save_type2)
+    return jsonify(response_data)    
 
 @app.route('/node_name', methods=['POST'])
 def submit_form():
@@ -99,6 +109,7 @@ def receive_data():
         for item in result:
                 file.write(item + '\n')
     return jsonify(result)
+
 
 
 
