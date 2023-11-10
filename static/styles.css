@@ -1,0 +1,4 @@
+.table-scrool {
+    height: 800px; /* İstediğiniz yüksekliği ayarlayabilirsiniz */
+    overflow: auto;
+  }

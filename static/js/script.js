@@ -1,7 +1,8 @@
 
 // Select all checkboxes with the name 'settings' using querySelectorAll.
 var checkboxes = document.querySelectorAll("input[type=checkbox][name=data-checkbox]");
-let selected_datas = []
+let selected_datas = [];
+
 
 /*
 For IE11 support, replace arrow functions with normal functions and
@@ -138,7 +139,81 @@ var table2_Props =  {
 var tf2 = setFilterGrid( "envanter_table",table2_Props );  
 
 
-function convert_yaml(){document.getElementById("convertYamlButton").addEventListener("click", function() {
+function get_node_name() {
+  var node_name_form = document.getElementById("nodename").value;
+
+  fetch("/node_name", {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ node_name: node_name_form })
+  })
+  .then(response => {
+      if (response.ok) {
+          return response.json();
+      } else {
+          throw new Error('Veri gönderme hatası');
+      }
+  })
+  .then(data => {
+      console.log(data.received_data);
+
+      // Check the message from the server and show the modal accordingly
+      if (data.message === 'Aynı isimde bir node yok.') {
+          // 1. Statement: Message indicates success, show the modal
+          save_hosts(save_type_param);
+
+          // Add any additional code or actions you want to perform on success
+      } else {
+          // 2. Statement: Message indicates failure or different outcome
+          // You can add alternative logic or UI updates here if needed
+          $('#hatali_kayit').modal('show');
+          // For now, let's log an error message to the console
+          console.error('Error: ', data.message);
+      }
+  })
+  .catch(error => {
+      console.error('Hata:', error);
+  });
+}
+
+
+function get_save_type_from_buttons(){
+  save_type_param = '0'
+  document.getElementById("convertYamlButton").addEventListener("click", function(){save_type_param = 'yaml';
+  get_node_name();send_save_type_from_buttons();});
+  document.getElementById("convertiniButton").addEventListener("click", function() {save_type_param = 'ini';
+  get_node_name();send_save_type_from_buttons();});
+
+  
+}
+
+get_save_type_from_buttons();
+
+function save_hosts(save_type_parametre){ 
+  if (save_type_parametre == 'ini') {convert_ini();}
+  else {convert_yaml()}
+}
+
+function send_save_type_from_buttons() {
+  fetch("/save_type", {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ save_type_param })
+  })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Save type Veri gönderme hatası');
+      }
+    }).then(data => { console.log(data.received_data); })
+}
+
+function convert_yaml(){
   // Buraya JavaScript kodunu ekleyebilirsiniz
   const url = '/convert'; // Flask sunucunuzun doğru URL'sini kullanın
 
@@ -159,29 +234,22 @@ function convert_yaml(){document.getElementById("convertYamlButton").addEventLis
   }).catch(error => {
       console.error('Hata:', error);
   });
-});}
+}
 
-convert_yaml();
+
 
 function convert_ini() {
-  document.getElementById("convertiniButton").addEventListener("click", function() {
-
-    fetch('/send_data_to_flask', {
-      method: 'POST',
-      body: JSON.stringify(selected_datas),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+  fetch('/send_data_to_flask', {
+    method: 'POST',
+    body: JSON.stringify(selected_datas),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
     .then(response => response.json())
     .then(data => {
       // Veriyi işle ve istediğin şekilde kullan
       console.log(data);
     });
-  });
 }
-
-convert_ini();
-
-// Initialize selected data table on page load
 
