@@ -2,3 +2,33 @@
     height: 800px; /* İstediğiniz yüksekliği ayarlayabilirsiniz */
     overflow: auto;
   }
+
+
+
+
+  /* Set max height for modal body and make it scrollable */
+  .new_modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+
+  /* Set fixed height for modal header and footer */
+  .new_modal-header, .new_modal-footer {
+    height: 50px;
+  }
+
+  /* Ensure close button stays at the top */
+  .new_modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 1050; /* Ensure it's above the modal backdrop */
+    background-color: #fff; /* Set background color if needed */
+  }
+
+  /* Ensure close button stays at the bottom */
+  .new_modal-footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 1050; /* Ensure it's above the modal backdrop */
+    background-color: #fff; /* Set background color if needed */
+  }

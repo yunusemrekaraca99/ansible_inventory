@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 
     <script src="{{ url_for('static', filename='js/prefixfree.min.js') }}"></script>
-    <title>Veri Tablosu</title>
+    <title>Ansible Inventory</title>
 
 </head>
 
@@ -61,8 +61,8 @@
                         <li class="navbar__item"  data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
                             <a href="#" class="navbar__link"><i data-feather="save"></i><span>Save</span></a>
                         </li>
-                        <li class="navbar__item">
-                            <a href="#" class="navbar__link"><i data-feather="file-text"></i><span>Messages</span></a>
+                        <li id="host_button" class="navbar__item" data-toggle="modal" data-target="#hosts_view" data-whatever="@getbootstrap">
+                            <a href="#" class="navbar__link"><i data-feather="file-text"></i><span>Hosts</span></a>
                         </li>
                         <li class="navbar__item">
                             <a href="#" class="navbar__link"><i data-feather="users"></i><span>Customerdd dsdsss</span></a>
@@ -132,14 +132,36 @@
               </div>
               
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="close_for_type2" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               <button id="overwrite" type="button" class="btn btn-primary">Overwrite</button>
               <button id="savetotemp" type="button" class="btn btn-primary">Save as temp</button>
             </div>
           </div>
         </div>
       </div>
-      
+    
+
+<!-- Modal HTML kodu -->
+<div class="modal fade" id="hosts_view" tabindex="-1" aria-labelledby="hosts_view_Label" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="hosts_view_Label">Hosts File</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p id="hosts_content">Loading hosts...</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
     <script src="{{ url_for('static', filename='feather-icons') }}"></script>
     <script src="{{ url_for('static', filename='js/TableFilter/tablefilter.js') }}"></script>
     <script src="{{ url_for('static', filename='js/TableFilter/tablefilter_all_min.js') }}"></script>

@@ -170,7 +170,7 @@ function get_node_name() {
       } else {
           // 2. Statement: Message indicates failure or different outcome
           // You can add alternative logic or UI updates here if needed
-          
+          $('#exampleModal').modal('hide');
           $('#hatali_kayit').modal('show');
           //document.getElementById("node_name_form").innerHTML = node_name_form;
           get_save_type2_from_buttons();
@@ -213,8 +213,10 @@ document.getElementById("savetotemp").addEventListener("click", function() {save
 temp_nodename();send_save_type2_from_buttons();save_hosts(save_type_param);
 $('#hatali_kayit').modal('hide');
 $('#exampleModal').modal('hide');
-});}
-
+});
+document.getElementById("close_for_type2").addEventListener("click", function() {$('#exampleModal').modal('show');
+});
+}
 get_save_type_from_buttons();
 
 
@@ -297,3 +299,16 @@ function convert_ini() {
     });
 }
 
+function host_view() {
+  document.getElementById("host_button").addEventListener("click", function() {
+      $('#hosts_view').on('show.bs.modal', function (e) {
+          $.get('/get_hosts', function(data) {
+              var hostsContent = data.hosts.join('<br>');
+              $('#hosts_content').html(hostsContent);
+          });
+      });
+  });
+}
+
+
+host_view();

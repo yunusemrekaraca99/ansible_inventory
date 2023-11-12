@@ -5,6 +5,8 @@ app = Flask(__name__)
 
 node_name = ''
 save_type = ''
+save_type2 = ''
+
 def read_data(filename):
     with open(filename, 'r') as file:
         lines = file.readlines()
@@ -92,6 +94,18 @@ def convert_to_yaml():
 
 
 
+@app.route('/get_hosts')
+def get_hosts():
+    hosts_data = read_hosts_file()
+    return {'hosts': hosts_data}
+
+def read_hosts_file():
+    file_path = './hosts'  # hosts.txt dosyanızın gerçek yoluyla değiştirin
+    with open(file_path, 'r') as file:
+        content = file.read().splitlines()
+    print(content)
+    return content
+
 @app.route('/send_data_to_flask', methods=['POST'])
 def receive_data():
     global node_name
@@ -109,7 +123,6 @@ def receive_data():
         for item in result:
                 file.write(item + '\n')
     return jsonify(result)
-
 
 
 
